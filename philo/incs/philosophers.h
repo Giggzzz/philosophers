@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.c                                     :+:      :+:    :+:   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/02 17:00:50 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/02 17:01:32 by gudias           ###   ########.fr       */
+/*   Created: 2022/06/02 17:01:46 by gudias            #+#    #+#             */
+/*   Updated: 2022/06/03 17:39:52 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
-int	main (int argc, char **argv)
+# include <pthread.h>
+# include <stdio.h>
+# include <unistd.h>
+
+typedef	struct s_philo
 {
+	int	id;
+	int	ttd;
+	int	tte;
+	int	tts;
+	pthread_mutex_t	*fork1;
+	pthread_mutex_t	*fork2;
+}	t_philo;
 
-	return (0);
-}
+#endif
