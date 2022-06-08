@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:01:46 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/04 04:56:56 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/08 19:30:35 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILOSOPHERS_H
 
 # include <pthread.h>
+# include <sys/time.h>
 # include <stdio.h>
 # include <unistd.h>
 
@@ -38,6 +39,8 @@ int	check_args(int argc, char **argv);
 void	init_params(t_params *params, char **argv);
 
 void	init_forks(int nb_forks);
+
+int		get_current_time();
 
 int	ft_atoi(char *str);
 
