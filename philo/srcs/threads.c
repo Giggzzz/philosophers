@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:50:19 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/09 18:57:44 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/09 19:13:06 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	*thread_philo_func(void *arg)
 
 	pthread_mutex_lock(philo->fork1);
 	pthread_mutex_lock(philo->fork2);
+
 	printf("[%d] %d starts to eat\n", get_current_time(), philo->id);
-
 	usleep(philo->params->time_to_eat);
+	printf("[%d] %d finished eating\n", get_current_time(), philo->id);
 
-	printf("[%d] %d finished eating\n", get_current_time(), philo->id);	
 	pthread_mutex_unlock(philo->fork1);
 	pthread_mutex_unlock(philo->fork2);
 
