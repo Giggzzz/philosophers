@@ -6,26 +6,11 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 00:26:42 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/04 04:53:38 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/09 18:58:07 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-static int	is_number_pos(char *str)
-{
-	if (!str)
-		return (0);
-	if (*str == '+' && *(str + 1))
-		str++;
-	while (*str)
-	{
-		if (*str < '0' || *str > '9')
-			return (0);
-		str++;
-	}
-	return (1);
-}
 
 int	check_args(int argc, char **argv)
 {
@@ -49,21 +34,85 @@ void	init_params(t_params *params, char **argv)
 {
 	params->nb_philos = ft_atoi(argv[1]);
 	params->time_to_die = ft_atoi(argv[2]);
-	params->time_to_sleep = ft_atoi(argv[3]);
-	params->time_to_eat = ft_atoi(argv[4]);
+	params->time_to_eat = ft_atoi(argv[3]);
+	params->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		params->min_turns = ft_atoi(argv[5]);
 	else
 		params->min_turns = -1;
 }
 
-/*
-void	init_forks(int nb_forks)
+pthread_mutex_t	**init_mutex_forks(int	nb_forks)
 {
+	pthread_mutex_t	**forks_mutex;
+	int		i;
+
+	forks_mutex = malloc (sizeof (pthread_mutex_t *) * nb_forks);
+	if (!forks_mutex)
+		return (NULL);
+	i = 0;
+	while (i < nb_forks)
+	{
+		forks_mutex[i] = malloc (sizeof (pthread_mutex_t));
+		if (!forks_mutex[i])
+		{
+			//free previous malloc
+			return (NULL);
+		}	
+		pthread_mutex_init(forks_mutex[i], NULL);
+		i++;
+	}	
+	return (forks_mutex);
 }
 
-void	init_philos(int argc, char **argv)
+t_philo	**init_philos(t_params *params, pthread_mutex_t **forks_mutex)
 {
+	t_philo	**philos;
+	int		i;
 
+	philos = malloc (sizeof (t_philo *) * params->nb_philos);
+	if (!philos)
+		return (NULL);
+	i = 0;
+	while (i < params->nb_philos)
+	{
+		philos[i] = malloc (sizeof (t_philo));
+		if (!philos[i])
+		{
+			//free_prev_malloc
+			return (NULL);
+		}
+		philos[i]->id = i;
+		philos[i]->fork1 = forks_mutex[i];
+		if (i == params->nb_philos - 1)
+			philos[i]->fork2 = forks_mutex[0];
+		else
+			philos[i]->fork2 = forks_mutex[i + 1];
+		philos[i]->params = params;
+		i++;
+	}
+	return (philos);
 }
-*/
+
+pthread_t	**init_threads(int nb, t_philo **philos)
+{
+	pthread_t	**threads;
+	int		i;
+
+	threads = malloc (sizeof (pthread_t *) * nb);
+	if (!threads)
+		return (NULL);
+	i = 0;
+	while (i < nb)
+	{
+		threads[i] = malloc (sizeof (pthread_t));
+		if (!threads[i])
+		{
+			//free prev malloc
+			return (NULL);
+		}
+		pthread_create(threads[i], NULL, &thread_philo_func, philos[i]);
+		i++;
+	}
+	return (threads);
+}	

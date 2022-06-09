@@ -6,7 +6,7 @@
 #    By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/02 16:55:08 by gudias            #+#    #+#              #
-#    Updated: 2022/06/08 19:30:45 by gudias           ###   ########.fr        #
+#    Updated: 2022/06/09 17:19:00 by gudias           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,7 @@ RM		= rm -f
 SRCSDIR	= srcs
 OBJSDIR	= objs
 
-SRCS	=	philosophers.c time.c 
-#init.c ft_atoi.c\
+SRCS	=	philosophers.c init.c threads.c utils.c\
 
 OBJS	= $(SRCS:%.c=$(OBJSDIR)/%.o)
 DBG_OBJS = $(SRCS:%.c=$(OBJSDIR)/%_dbg.o)
