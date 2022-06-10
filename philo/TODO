@@ -1,6 +1,7 @@
-free/destroy all
 timestamp
+
 thread_philos loop-->die
 message controller ?? // someone died check
+
 error msg /close
 colored/pimped philos ?

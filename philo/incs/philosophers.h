@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:01:46 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/09 18:58:22 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/10 18:27:26 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 
 typedef	struct s_params
 {
-	int	nb_philos;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	min_turns;
+	int		nb_philos;
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		min_turns;
 }	t_params;
 
 typedef	struct s_philo
@@ -49,6 +49,13 @@ void	wait_all_threads(int nb, pthread_t **threads);
 
 //time
 int		get_current_time(void);
+
+//close
+void	free_forks_mutex(pthread_mutex_t **forks_mutex);
+void	free_philos(t_philo **philos);
+void	free_threads(pthread_t **threads);
+void	free_all(pthread_mutex_t **forks_mutex, pthread_t **threads, t_philo **philos);
+void	exit_error_msg(char *msg);
 
 //utils
 int	err_msg(char *str);
