@@ -6,13 +6,11 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:16:32 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/10 19:17:24 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/14 17:44:06 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-extern int	g_start;
 
 int	err_msg(char *str)
 {
@@ -20,12 +18,12 @@ int	err_msg(char *str)
 	return (1);
 }
 
-int	get_current_time()
+long int	get_current_time()
 {
 	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
-	return ((current_time.tv_usec - g_start));
+	return ((current_time.tv_sec * 1000) + current_time.tv_usec / 1000);
 }
 
 int	is_number_pos(char *str)

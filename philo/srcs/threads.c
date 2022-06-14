@@ -6,35 +6,43 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:50:19 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/10 19:38:59 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/14 18:40:24 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+void	print_msg(char *msg, t_params *params, int id)
+{
+	long int	timestamp;
+
+	timestamp = get_current_time() - params->start_time;
+	//pthread_mutex_lock(&(params->print_lock));
+	printf("%ld\tms\t%d %s\n", timestamp, id, msg);
+	//pthread_mutex_unlock(&(params->print_lock));
+}
+
 void	*thread_philo_func(void *arg)
 {
 	t_philo	*philo;
 
-	philo = (t_philo *) arg;
-	//printf("[%d] %d arrives and wait for fork\n", get_current_time(), philo->id);
-	
+	philo = (t_philo *) arg;	
 
 	pthread_mutex_lock(philo->fork1);
+	print_msg(MSG_FORK, philo->params, philo->id);
 	pthread_mutex_lock(philo->fork2);
-
-	printf("[%d] %d starts to eat\n", get_current_time(), philo->id);
-	usleep(philo->params->time_to_eat);
-	printf("[%d] %d finished eating\n", get_current_time(), philo->id);
+	print_msg(MSG_FORK2, philo->params, philo->id);
+	
+	print_msg(MSG_EAT, philo->params, philo->id);
+	usleep(philo->params->time_to_eat * 1000);	
 
 	pthread_mutex_unlock(philo->fork1);
 	pthread_mutex_unlock(philo->fork2);
 
-
-	printf("[%d] %d starts to sleep\n", get_current_time(), philo->id);
-	usleep(philo->params->time_to_sleep);
-
-	printf("[%d] %d dies\n", get_current_time(), philo->id);
+	print_msg(MSG_SLEEP, philo->params, philo->id);
+	usleep(philo->params->time_to_sleep * 1000);
+	print_msg(MSG_DIE, philo->params, philo->id);
+	
 	return (NULL);
 }
 

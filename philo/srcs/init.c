@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 00:26:42 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/10 19:42:47 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/14 18:10:59 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	init_params(t_params *params, char **argv)
 		params->min_turns = ft_atoi(argv[5]);
 	else
 		params->min_turns = -1;
+	pthread_mutex_init(&(params->print_lock), NULL);
+	params->start_time = get_current_time();
 }
 
 pthread_mutex_t	**init_mutex_forks(int	nb_forks)
@@ -116,6 +118,7 @@ pthread_t	**init_threads(int nb, t_philo **philos)
 			return (NULL);
 		}
 		pthread_create(threads[i], NULL, &thread_philo_func, philos[i]);
+		//usleep(1);
 		i++;
 	}
 	threads[nb] = NULL;

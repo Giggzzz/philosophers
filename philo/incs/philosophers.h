@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:01:46 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/10 18:27:26 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/14 18:42:32 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 # include <stdio.h>
 # include <unistd.h>
 
+# define MSG_FORK "\033[1;33mhas taken a fork\033[0m" 
+# define MSG_FORK2 "\033[1;35mhas taken a fork\033[0m" 
+# define MSG_EAT "\033[1;32mis eating\033[0m" 
+# define MSG_SLEEP "\033[1;34mis sleeping\033[0m" 
+# define MSG_DIE "\033[1;31mdied\033[0m" 
+	
+	
 typedef	struct s_params
 {
 	int		nb_philos;
@@ -26,6 +33,8 @@ typedef	struct s_params
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		min_turns;
+	long int	start_time;
+	pthread_mutex_t	print_lock;
 }	t_params;
 
 typedef	struct s_philo
@@ -46,9 +55,10 @@ pthread_t	**init_threads(int nb, t_philo **philos);
 //threads
 void	*thread_philo_func(void *arg);
 void	wait_all_threads(int nb, pthread_t **threads);
+void	print_msg(char *msg, t_params *params, int id);
 
 //time
-int		get_current_time(void);
+long int		get_current_time(void);
 
 //close
 void	free_forks_mutex(pthread_mutex_t **forks_mutex);
