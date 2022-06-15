@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 00:26:42 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/14 18:10:59 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/15 15:40:11 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ t_philo	**init_philos(t_params *params, pthread_mutex_t **forks_mutex)
 			philos[i]->fork2 = forks_mutex[0];
 		else
 			philos[i]->fork2 = forks_mutex[i + 1];
+		philos[i]->last_meal = 0;
+		philos[i]->meal_count = 0;
 		philos[i]->params = params;
 		i++;
 	}
@@ -117,8 +119,8 @@ pthread_t	**init_threads(int nb, t_philo **philos)
 			free_threads(threads);
 			return (NULL);
 		}
-		pthread_create(threads[i], NULL, &thread_philo_func, philos[i]);
-		//usleep(1);
+		pthread_create(threads[i], NULL, &thread_philo_routine, philos[i]);
+		usleep(1);
 		i++;
 	}
 	threads[nb] = NULL;

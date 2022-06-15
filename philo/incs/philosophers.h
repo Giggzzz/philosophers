@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:01:46 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/14 18:42:32 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/15 15:42:52 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <unistd.h>
 
 # define MSG_FORK "\033[1;33mhas taken a fork\033[0m" 
-# define MSG_FORK2 "\033[1;35mhas taken a fork\033[0m" 
 # define MSG_EAT "\033[1;32mis eating\033[0m" 
 # define MSG_SLEEP "\033[1;34mis sleeping\033[0m" 
+# define MSG_THINK "\033[1;35mis thinking\033[0m" 
 # define MSG_DIE "\033[1;31mdied\033[0m" 
 	
 	
@@ -42,6 +42,8 @@ typedef	struct s_philo
 	int	id;
 	pthread_mutex_t	*fork1;
 	pthread_mutex_t	*fork2;
+	long int	last_meal;
+	int		meal_count;
 	t_params	*params;
 }	t_philo;
 
@@ -53,7 +55,7 @@ t_philo		**init_philos(t_params *params, pthread_mutex_t **forks_mutex);
 pthread_t	**init_threads(int nb, t_philo **philos);
 
 //threads
-void	*thread_philo_func(void *arg);
+void	*thread_philo_routine(void *arg);
 void	wait_all_threads(int nb, pthread_t **threads);
 void	print_msg(char *msg, t_params *params, int id);
 
