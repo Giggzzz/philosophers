@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:01:46 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/15 15:42:52 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/16 17:48:49 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef	struct s_params
 	int		time_to_sleep;
 	int		min_turns;
 	long int	start_time;
+	int		sim_finished;
 	pthread_mutex_t	print_lock;
 }	t_params;
 
@@ -56,6 +57,7 @@ pthread_t	**init_threads(int nb, t_philo **philos);
 
 //threads
 void	*thread_philo_routine(void *arg);
+void	*thread_check_death(void *arg);
 void	wait_all_threads(int nb, pthread_t **threads);
 void	print_msg(char *msg, t_params *params, int id);
 
@@ -71,6 +73,7 @@ void	exit_error_msg(char *msg);
 
 //utils
 int	err_msg(char *str);
+void	hacked_usleep(int ms_time);
 int	is_number_pos(char *str);
 int	ft_atoi(char *str);
 

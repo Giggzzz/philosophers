@@ -1,5 +1,5 @@
 
-thread_philos loop-->die
-message controller ?? // someone died check
+message controller ?? 
+thread someone died check
 
 error msg /close

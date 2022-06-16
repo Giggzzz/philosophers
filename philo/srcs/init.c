@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 00:26:42 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/15 15:40:11 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/16 17:48:24 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_params(t_params *params, char **argv)
 		params->min_turns = -1;
 	pthread_mutex_init(&(params->print_lock), NULL);
 	params->start_time = get_current_time();
+	params->sim_finished = 0;
 }
 
 pthread_mutex_t	**init_mutex_forks(int	nb_forks)

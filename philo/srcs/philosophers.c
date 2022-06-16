@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:00:50 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/14 17:45:22 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/16 17:23:30 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main (int argc, char **argv)
 	pthread_mutex_t	**forks_mutex;
 	t_philo		**philos;
 	pthread_t	**threads;
+	pthread_t	thread_checker;
 
 	if (!check_args(argc, argv))
 		return (1);
@@ -26,7 +27,8 @@ int	main (int argc, char **argv)
 	forks_mutex = init_mutex_forks(params.nb_philos);
 	philos = init_philos(&params, forks_mutex);
 	threads = init_threads(params.nb_philos, philos);
-
+	pthread_create(&thread_checker, NULL, &thread_check_death, philos);
+	//pthread_join(thread_checker, NULL);	
 	wait_all_threads(params.nb_philos, threads);
 
 	free_all(forks_mutex, threads, philos);
