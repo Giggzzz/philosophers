@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:50:19 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/16 18:10:02 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/17 16:17:31 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	is_dead(t_philo *philo)
 		return (1);
 	return (0);
 }
+
 void	*thread_check_death(void *arg)
 {
 	t_philo	**philos;

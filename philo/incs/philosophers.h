@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:01:46 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/16 17:48:49 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/18 00:47:56 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef	struct s_params
 	int		time_to_die;
 	int		time_to_eat;
 	int		time_to_sleep;
-	int		min_turns;
+	int		meals_to_eat;
 	long int	start_time;
 	int		sim_finished;
 	pthread_mutex_t	print_lock;
