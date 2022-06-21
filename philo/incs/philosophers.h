@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:01:46 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/18 00:47:56 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/21 17:04:22 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ typedef	struct s_philo
 
 //init
 int		check_args(int argc, char **argv);
-void		init_params(t_params *params, char **argv);
+int		init_params(t_params *params, int argc, char **argv);
 pthread_mutex_t	**init_mutex_forks(int nb_forks);
-t_philo		**init_philos(t_params *params, pthread_mutex_t **forks_mutex);
-pthread_t	**init_threads(int nb, t_philo **philos);
+t_philo		**create_philos(t_params *params, pthread_mutex_t **forks_mutex);
+pthread_t	**create_threads(int nb, t_philo **philos);
 
 //threads
 void	*thread_philo_routine(void *arg);
@@ -73,7 +73,7 @@ void	exit_error_msg(char *msg);
 
 //utils
 int	err_msg(char *str);
-void	hacked_usleep(int ms_time);
+void	tweaked_usleep(int ms_time);
 int	is_number_pos(char *str);
 int	ft_atoi(char *str);
 

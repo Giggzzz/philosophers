@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:50:19 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/17 16:17:31 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/21 17:05:49 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	*thread_philo_routine(void *arg)
 		
 		print_msg(MSG_EAT, philo->params, philo->id);
 		philo->last_meal = get_current_time() - philo->params->start_time;
-		usleep(philo->params->time_to_eat * 1000);	
+		tweaked_usleep(philo->params->time_to_eat);	
 	
 		pthread_mutex_unlock(philo->fork1);
 		pthread_mutex_unlock(philo->fork2);
@@ -87,7 +87,7 @@ void	*thread_philo_routine(void *arg)
 			break ;
 	
 		print_msg(MSG_SLEEP, philo->params, philo->id);
-		usleep(philo->params->time_to_sleep * 1000);
+		tweaked_usleep(philo->params->time_to_sleep);
 		
 		if (philo->params->sim_finished)
 			break ;

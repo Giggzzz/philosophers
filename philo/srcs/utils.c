@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:16:32 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/16 18:05:56 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/21 17:04:09 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,13 @@ long int	get_current_time()
 	return ((current_time.tv_sec * 1000) + current_time.tv_usec / 1000);
 }
 
-void	hacked_usleep(int ms_time)
+void	tweaked_usleep(int ms_time)
 {
-	int	us_time;
+	long int	start;
 
-	us_time = ms_time * 1000;
-	while (us_time > 0)
-	{
+	start = get_current_time();
+	while ((get_current_time() - start) < ms_time)
 		usleep(100);
-		us_time = us_time - 100;
-	}
 }
 
 int	is_number_pos(char *str)
