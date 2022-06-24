@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/23 21:37:06 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/24 19:01:38 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,11 @@ void	free_forks_mutex(pthread_mutex_t **forks_mutex)
 	forks_mutex = NULL;
 }
 
-void	free_all(pthread_mutex_t **forks_mutex, pthread_t **threads, t_philo **philos)
+void	free_all(pthread_mutex_t **frks, pthread_t **thrds, t_philo **phls)
 {
-	free_philos(philos);
-	free_threads(threads);
-	free_forks_mutex(forks_mutex);
-}
-
-void	exit_error_msg(char *msg)
-{
-	printf("Error: %s\n", msg);
-	exit(1);
+	free_philos(phls);
+	free_threads(thrds);
+	free_forks_mutex(frks);
 }
 
 int	err_msg(char *str)

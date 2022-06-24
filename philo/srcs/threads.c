@@ -6,13 +6,13 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:50:19 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/23 21:32:23 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/24 19:41:54 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-pthread_t	**create_threads(int nb, t_philo **philos)
+pthread_t	**create_threads(int nb, t_philo **philos, pthread_t *t_checker)
 {
 	pthread_t	**threads;
 	int			i;
@@ -33,6 +33,7 @@ pthread_t	**create_threads(int nb, t_philo **philos)
 		i++;
 	}
 	threads[nb] = NULL;
+	pthread_create(t_checker, NULL, &thread_check_death, philos);
 	return (threads);
 }
 

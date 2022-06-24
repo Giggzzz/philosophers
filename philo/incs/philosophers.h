@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:01:46 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/23 21:30:27 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/24 19:42:40 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,13 @@ typedef struct s_philo
 }	t_philo;
 
 //init.c
-int		init_params(t_params *params, int argc, char **argv);
+int				init_params(t_params *params, int argc, char **argv);
 pthread_mutex_t	**init_mutex_forks(int nb_forks);
 t_philo		**create_philos(t_params *params, pthread_mutex_t **forks_mutex);
 
 //threads.c
-pthread_t	**create_threads(int nb, t_philo **philos);
+pthread_t	**create_threads(int nb, t_philo **philos, pthread_t *t_checker);
+
 void	wait_all_threads(pthread_t **threads, pthread_t *thread_checker);
 
 //checker_thread.c
@@ -65,12 +66,12 @@ void	*thread_check_death(void *arg);
 void	*thread_philo_routine(void *arg);
 
 //close.c
-void	exit_error_msg(char *msg);
+void	exit_msg(char *msg);
 int		err_msg(char *str);
 void	free_forks_mutex(pthread_mutex_t **forks_mutex);
 void	free_philos(t_philo **philos);
 void	free_threads(pthread_t **threads);
-void	free_all(pthread_mutex_t **forks, pthread_t **threads, t_philo **philos);
+void	free_all(pthread_mutex_t **frks, pthread_t **thrds, t_philo **phls);
 
 //utils.c
 void		print_msg(char *msg, t_params *params, int id);
