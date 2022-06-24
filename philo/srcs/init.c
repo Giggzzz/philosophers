@@ -6,13 +6,13 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 00:26:42 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/21 16:49:31 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/23 21:34:25 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	check_args(int argc, char **argv)
+static int	check_args(int argc, char **argv)
 {
 	if (argc != 5 && argc != 6)
 	{
@@ -42,13 +42,14 @@ int	init_params(t_params *params, int argc, char **argv)
 		params->meals_to_eat = ft_atoi(argv[5]);
 	else
 		params->meals_to_eat = -1;
-	pthread_mutex_init(&(params->print_lock), NULL);
 	params->start_time = get_current_time();
-	params->sim_finished = 0;
+	params->ended = 0;
+	pthread_mutex_init(&(params->ended_lock), NULL);
+	pthread_mutex_init(&(params->print_lock), NULL);
 	return (1);
 }
 
-pthread_mutex_t	**init_mutex_forks(int	nb_forks)
+pthread_mutex_t	**init_mutex_forks(int nb_forks)
 {
 	pthread_mutex_t	**forks_mutex;
 	int		i;
@@ -72,17 +73,18 @@ pthread_mutex_t	**init_mutex_forks(int	nb_forks)
 	return (forks_mutex);
 }
 
-static void	init_philo(t_philo *philo, int id, pthread_mutex_t **forks_mutex, t_params *params){
-
-		philo->id = id;
-		philo->fork1 = forks_mutex[id - 1];
-		if (id == params->nb_philos)
-			philo->fork2 = forks_mutex[0];
-		else
-			philo->fork2 = forks_mutex[id];
-		philo->last_meal = 0;
-		philo->meal_count = 0;
-		philo->params = params;
+static void	init_philo(t_philo *philo, int id, pthread_mutex_t **forks_mutex, t_params *params)
+{
+	philo->id = id;
+	philo->fork1 = forks_mutex[id - 1];
+	if (id == params->nb_philos)
+		philo->fork2 = forks_mutex[0];
+	else
+		philo->fork2 = forks_mutex[id];
+	philo->last_meal = 0;
+	pthread_mutex_init(&(philo->last_meal_lock), NULL);
+	philo->meal_count = 0;
+	philo->params = params;
 }
 
 t_philo	**create_philos(t_params *params, pthread_mutex_t **forks_mutex)
@@ -108,28 +110,3 @@ t_philo	**create_philos(t_params *params, pthread_mutex_t **forks_mutex)
 	philos[params->nb_philos] = NULL;
 	return (philos);
 }
-
-pthread_t	**create_threads(int nb, t_philo **philos)
-{
-	pthread_t	**threads;
-	int		i;
-
-	threads = malloc (sizeof (pthread_t *) * (nb + 1));
-	if (!threads)
-		return (NULL);
-	i = 0;
-	while (i < nb)
-	{
-		threads[i] = malloc (sizeof (pthread_t));
-		if (!threads[i])
-		{
-			free_threads(threads);
-			return (NULL);
-		}
-		pthread_create(threads[i], NULL, &thread_philo_routine, philos[i]);
-		usleep(1);
-		i++;
-	}
-	threads[nb] = NULL;
-	return (threads);
-}	

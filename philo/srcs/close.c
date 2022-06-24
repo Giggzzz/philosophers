@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/10 16:39:52 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/23 21:37:06 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	free_philos(t_philo **philos)
 	i = 0;
 	while (philos[i])
 	{
+		pthread_mutex_destroy(&(philos[i]->last_meal_lock));
 		free(philos[i]);
 		philos[i] = NULL;
 		i++;
@@ -75,4 +76,10 @@ void	exit_error_msg(char *msg)
 {
 	printf("Error: %s\n", msg);
 	exit(1);
+}
+
+int	err_msg(char *str)
+{
+	printf("Error: %s\n", str);
+	return (1);
 }
