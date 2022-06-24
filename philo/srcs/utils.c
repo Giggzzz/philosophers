@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:16:32 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/23 21:35:39 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/24 20:46:27 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	print_msg(char *msg, t_params *params, int id)
 	long int	timestamp;
 
 	timestamp = get_current_time() - params->start_time;
+	if (msg[10] == 'd')
+		timestamp--;
 	pthread_mutex_lock(&(params->print_lock));
 	printf("%ld\t%d %s\n", timestamp, id, msg);
 	pthread_mutex_unlock(&(params->print_lock));
