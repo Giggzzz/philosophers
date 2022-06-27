@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:50:19 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/25 03:49:08 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/27 12:04:49 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ int	create_process(t_philo **philos)
 	{
 		philos[i]->pid = fork();
 		if (philos[i]->pid == -1)
-			return (0);
+			return (1);
 		if (philos[i]->pid == 0)
 		{
 			philo_routine(philos[i]);
-			exit (1);
+			exit (0);
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 void	wait_all_process(t_philo **philos)

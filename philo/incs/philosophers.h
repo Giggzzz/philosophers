@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:01:46 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/24 19:42:40 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/27 11:45:09 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,30 @@ typedef struct s_philo
 //init.c
 int				init_params(t_params *params, int argc, char **argv);
 pthread_mutex_t	**init_mutex_forks(int nb_forks);
-t_philo		**create_philos(t_params *params, pthread_mutex_t **forks_mutex);
+t_philo			**create_philos(t_params *params, pthread_mutex_t **forks);
 
 //threads.c
-pthread_t	**create_threads(int nb, t_philo **philos, pthread_t *t_checker);
-
-void	wait_all_threads(pthread_t **threads, pthread_t *thread_checker);
+pthread_t		**create_threads(int nb, t_philo **philos, pthread_t *t_check);
+void			wait_all_threads(pthread_t **threads, pthread_t *thread_check);
 
 //checker_thread.c
-void	*thread_check_death(void *arg);
+void			*thread_check_death(void *arg);
 
 //philo_routine.c
-void	*thread_philo_routine(void *arg);
+void			*thread_philo_routine(void *arg);
 
 //close.c
-void	exit_msg(char *msg);
-int		err_msg(char *str);
-void	free_forks_mutex(pthread_mutex_t **forks_mutex);
-void	free_philos(t_philo **philos);
-void	free_threads(pthread_t **threads);
-void	free_all(pthread_mutex_t **frks, pthread_t **thrds, t_philo **phls);
+int				err_msg(char *str);
+void			free_forks_mutex(pthread_mutex_t **forks_mutex);
+void			free_philos(t_philo **philos);
+void			free_threads(pthread_t **threads);
+void			free_all(pthread_mutex_t **frks, pthread_t **th, t_philo **ph);
 
 //utils.c
-void		print_msg(char *msg, t_params *params, int id);
-long int	get_current_time(void);
-void		tweaked_usleep(int ms_time);
-int			is_number_pos(char *str);
-int			ft_atoi(char *str);
+void			print_msg(char *msg, t_params *params, int id);
+long int		get_current_time(void);
+void			tweaked_usleep(int ms_time);
+int				is_number_pos(char *str);
+int				ft_atoi(char *str);
 
 #endif
