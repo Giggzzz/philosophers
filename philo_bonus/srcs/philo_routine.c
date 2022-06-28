@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 20:46:06 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/27 18:42:32 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/28 16:02:41 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static void	take_lunch(t_philo *philo)
 	sem_post(philo->last_meal_sem);
 	print_msg(MSG_EAT, philo->params, philo->id);
 	tweaked_usleep(philo->params->time_to_eat);
-	sem_post(philo->params->forks_sem);	
-	sem_post(philo->params->forks_sem);	
 	philo->meal_count++;
-	//if (philo->meal_count == philo->params->meals_to_eat)
-	//	sem_post(philo->params->is_full_sem[philo->id - 1]);
+	sem_post(philo->params->forks_sem);
+	sem_post(philo->params->forks_sem);
+	if (philo->meal_count == philo->params->meals_to_eat)
+		sem_post(philo->params->is_full_sem);
 }
 
 static void	have_a_good_night(t_philo *philo)

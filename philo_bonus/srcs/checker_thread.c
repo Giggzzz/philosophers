@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 21:11:59 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/27 18:30:17 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/28 14:34:40 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	is_philo_dead(t_philo *philo)
 {
 	long int	timestamp;
-	
+
 	timestamp = get_current_time() - philo->params->start_time;
 	if (philo->last_meal + philo->params->time_to_die < timestamp)
 		return (1);
@@ -51,12 +51,11 @@ void	*thread_check_death(void *arg)
 		if (is_philo_dead(philo))
 		{
 			sem_wait(philo->params->print_sem);
-			printf("%ld\t%d %s\n", time - philo->params->start_time, philo->id, MSG_DIE);
+			time = time - philo->params->start_time;
+			printf("%ld\t%d %s\n", time, philo->id, MSG_DIE);
 			sem_post(philo->params->ended_sem);
 			return (NULL);
 		}
-		//if (check_all_ate(philos))
-		//	return (NULL);
 		while (get_current_time() == time)
 			usleep(100);
 	}
@@ -66,9 +65,25 @@ void	*thread_check_death(void *arg)
 void	*thread_wait_end(void *arg)
 {
 	t_philo	**philos;
-	
+
 	philos = (t_philo **) arg;
 	sem_wait(philos[0]->params->ended_sem);
 	kill_all_process(philos);
+	return (NULL);
+}
+
+void	*thread_wait_all_full(void *arg)
+{
+	t_params	*params;
+	int			is_full;
+
+	params = (t_params *) arg;
+	is_full = 0;
+	while (is_full != params->nb_philos)
+	{	
+		sem_wait(params->is_full_sem);
+		is_full++;
+	}
+	sem_post(params->ended_sem);
 	return (NULL);
 }

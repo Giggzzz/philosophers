@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:50:19 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/27 12:04:49 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/28 14:30:48 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	create_process(t_philo **philos)
 void	wait_all_process(t_philo **philos)
 {
 	int	i;
-	
+
 	i = 0;
 	while (philos[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:01:46 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/27 17:35:57 by gudias           ###   ########.fr       */
+/*   Updated: 2022/06/28 16:12:34 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_params
 	sem_t		*ended_sem;
 	sem_t		*print_sem;
 	sem_t		*forks_sem;
+	sem_t		*is_full_sem;
 }	t_params;
 
 typedef struct s_philo
@@ -64,6 +65,7 @@ void	kill_all_process(t_philo **philos);
 //checker_thread.c
 void	*thread_check_death(void *arg);
 void	*thread_wait_end(void *arg);
+void	*thread_wait_all_full(void *arg);
 
 //philo_routine.c
 void	philo_routine(t_philo *philo);
@@ -74,10 +76,14 @@ void	free_philos(t_philo **philos);
 void	free_all(t_philo **philos);
 
 //utils.c
-void			print_msg(char *msg, t_params *params, int id);
-long int		get_current_time(void);
-void			tweaked_usleep(int ms_time);
-int				is_number_pos(char *str);
-int				ft_atoi(char *str);
+void	print_msg(char *msg, t_params *params, int id);
+long	get_current_time(void);
+void	tweaked_usleep(int ms_time);
+int		is_number_pos(char *str);
+int		ft_atoi(char *str);
 
+//utils2.c
+int		ft_strlen(char *str);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_itoa(int n);
 #endif
