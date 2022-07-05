@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:01:46 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/28 16:12:34 by gudias           ###   ########.fr       */
+/*   Updated: 2022/07/05 18:11:44 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_params
 	int			time_to_sleep;
 	int			meals_to_eat;
 	long int	start_time;
+	int			ended;
 	sem_t		*ended_sem;
 	sem_t		*print_sem;
 	sem_t		*forks_sem;

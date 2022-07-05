@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 00:26:42 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/24 19:00:44 by gudias           ###   ########.fr       */
+/*   Updated: 2022/07/05 16:13:21 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	check_args(int argc, char **argv)
 		return (err_msg("bad argument count"));
 	while (*(++argv))
 	{
-		if (!is_number_pos(*argv))
+		if (!is_number_pos(*argv) || ft_atoi(*argv) == 0)
 			return (err_msg("invalid arguments"));
 	}
 	return (0);

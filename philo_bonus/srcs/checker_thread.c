@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 21:11:59 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/28 14:34:40 by gudias           ###   ########.fr       */
+/*   Updated: 2022/07/05 18:13:34 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	*thread_wait_end(void *arg)
 
 	philos = (t_philo **) arg;
 	sem_wait(philos[0]->params->ended_sem);
+	philos[0]->params->ended = 1;
+	sem_post(philos[0]->params->is_full_sem);
 	kill_all_process(philos);
 	return (NULL);
 }
@@ -82,6 +84,8 @@ void	*thread_wait_all_full(void *arg)
 	while (is_full != params->nb_philos)
 	{	
 		sem_wait(params->is_full_sem);
+		if (params->ended)
+			return (NULL);
 		is_full++;
 	}
 	sem_post(params->ended_sem);

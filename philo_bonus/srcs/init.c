@@ -6,7 +6,7 @@
 /*   By: gudias <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 00:26:42 by gudias            #+#    #+#             */
-/*   Updated: 2022/06/28 16:00:26 by gudias           ###   ########.fr       */
+/*   Updated: 2022/07/05 18:20:48 by gudias           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	check_args(int argc, char **argv)
 		return (err_msg("bad argument count"));
 	while (*(++argv))
 	{
-		if (!is_number_pos(*argv))
+		if (!is_number_pos(*argv) || ft_atoi(*argv) == 0)
 			return (err_msg("invalid arguments"));
 	}
 	return (0);
@@ -37,6 +37,7 @@ int	init_params(t_params *params, int argc, char **argv)
 	else
 		params->meals_to_eat = -1;
 	params->start_time = get_current_time();
+	params->ended = 0;
 	sem_unlink("/ended");
 	sem_unlink("/isfull");
 	sem_unlink("/print");
